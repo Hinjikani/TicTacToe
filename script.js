@@ -25,6 +25,7 @@ function gameBoard(){
       board[rowIndex][columnIndex] = player
     } else {
       console.log(`column ${column} row ${row} is already occupied`)
+      return false
     }
   }
 
@@ -70,17 +71,20 @@ function gameController(playerOneName = "Player one", playerTwoName = "Player tw
   //printing Current Round
   let round = 0;
   const printRound = () =>{
-    round++;
     board.printBoard()
     console.log(`Round ${round} ${getActivePlayer().name}'s turn.`)
   };
   
   const playRound = (row, column) => {
     console.log(`${getActivePlayer().name} placing ${getActivePlayer().sign} on ${row} row and ${column}`)
-    board.mark(row, column, getActivePlayer().sign)
-
-    switchPlayerTurn();
-    printRound();
+    let markBoard = board.mark(row, column, getActivePlayer().sign)
+    if (markBoard === false) {
+      printRound();
+    } else {
+      switchPlayerTurn();
+      round ++
+      printRound();
+    }
   }
 
   printRound();
