@@ -1,0 +1,25 @@
+html{
+  height: 95vh;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+}
+
+#TicTacToe-grid {
+  flex: 1;
+  width:40%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+  gap:0.5rem;
+}
+
+#TicTacToe-grid > div {
+  flex: 1;
+  border: 1px solid black;
+}
+
