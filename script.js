@@ -16,13 +16,11 @@ function gameBoard(){
   
   //Put player's marker
   const mark = (row, column, player) => {
-    const rowIndex = row - 1;
-    const columnIndex = column - 1;
 
-    if (row < 1 || row > 3 || column < 1 || row > 3) {
+    if (row < 0 || row > 2 || column < 0 || row > 2) {
       console.log(`column ${column} row ${row} is out of range`)
-    } else if (board[rowIndex][columnIndex] === "") {
-      board[rowIndex][columnIndex] = player
+    } else if (board[row][column] === "") {
+      board[row][column] = player
     } else {
       console.log(`column ${column} row ${row} is already occupied`)
       return false
