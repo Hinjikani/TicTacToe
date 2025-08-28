@@ -120,6 +120,7 @@ function gameController(playerOneName = "Player one", playerTwoName = "Player tw
     currentBoard[0][2] === currentBoard[1][1] &&
     currentBoard[1][1] === currentBoard[0][2]){
       console.log(`${getActivePlayer().name} have won the game!!!`)
+      return("won")
     }
   }
 
