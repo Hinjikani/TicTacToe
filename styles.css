@@ -10,8 +10,7 @@ body{
 }
 
 #TicTacToe-grid {
-  flex: 1;
-  width:40%;
+  width:30%;
   aspect-ratio: 1 / 1;
   display: grid;
   grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
