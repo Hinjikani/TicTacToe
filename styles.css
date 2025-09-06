@@ -18,6 +18,10 @@ body{
 }
 
 #TicTacToe-grid > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 96px;
   flex: 1;
   border: 1px solid black;
 }
