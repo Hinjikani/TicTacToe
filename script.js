@@ -67,10 +67,10 @@ function gameController(playerOneName = "Player one", playerTwoName = "Player tw
   const getActivePlayer = () => activePlayer;
   
   //printing Current Round
-  let round = 0;
+  let round = 1;
   const printRound = () =>{
     board.printBoard()
-    console.log(`Round ${round} ${getActivePlayer().name}'s turn.`)
+    return `Round ${round} ${getActivePlayer().name}'s turn.`
   };
   
   const checkWin = () => {
@@ -79,53 +79,44 @@ function gameController(playerOneName = "Player one", playerTwoName = "Player tw
     if (currentBoard[0][0] !== "" &&
     currentBoard[0][0] === currentBoard[0][1] &&
     currentBoard[0][1] === currentBoard[0][2]) {
-      console.log(`${getActivePlayer().name} have won the game!!!1`)
-      return("won")
+      return(`${getActivePlayer().name} have won the game!!!`)
     } else if (currentBoard[1][0] !== "" &&
     currentBoard[1][0] === currentBoard[1][1]&&
     currentBoard[1][1] === currentBoard[1][2]){
-      console.log(`${getActivePlayer().name} have won the game!!!2`)
-      return("won")
+      return(`${getActivePlayer().name} have won the game!!!`)
     } else if (currentBoard[2][0] !== "" &&
     currentBoard[2][0] === currentBoard[2][1] &&
     currentBoard[2][1] === currentBoard[2][2]){
-      console.log(`${getActivePlayer().name} have won the game!!!3`)
-      return("won") 
+      return(`${getActivePlayer().name} have won the game!!!`)
     }
     // vertical case
     if (currentBoard[0][0] !== "" &&
     currentBoard[0][0] === currentBoard[1][0] &&
     currentBoard[1][0] === currentBoard[2][0]){
-      console.log(`${getActivePlayer().name} have won the game!!!4`)
-      return("won")
+      return(`${getActivePlayer().name} have won the game!!!`)
     } else if (currentBoard[0][1] !== "" &&
     currentBoard[0][1] === currentBoard[1][1] &&
     currentBoard[1][1] === currentBoard[2][1]){
-      console.log(`${getActivePlayer().name} have won the game!!!5`)
-      return("won")
+      return(`${getActivePlayer().name} have won the game!!!`)
     } else if (currentBoard[0][2] !== "" &&
     currentBoard[0][2] === currentBoard[1][2] &&
     currentBoard[1][2] === currentBoard[2][2]){
-      console.log(`${getActivePlayer().name} have won the game!!!6`)
-      return("won")
+      return(`${getActivePlayer().name} have won the game!!!`)
     }
     
     //diagonal case
     if (currentBoard[0][0] !== "" &&
     currentBoard[0][0] === currentBoard[1][1] &&
     currentBoard[1][1] === currentBoard[2][2]){
-      console.log(`${getActivePlayer().name} have won the game!!!7`)
-      return("won")
+      return(`${getActivePlayer().name} have won the game!!!`)
     } else if (currentBoard[0][2] !== "" &&
     currentBoard[0][2] === currentBoard[1][1] &&
     currentBoard[1][1] === currentBoard[2][0]){
-      console.log(`${getActivePlayer().name} have won the game!!!8`)
-      return("won")
+      return(`${getActivePlayer().name} have won the game!!!`)
     }
 
     if (currentBoard.every(row => row.every(cell => cell !== ""))){
-      console.log("Game ended in a tie!")
-      return("tie")
+      return("Game ended in a tie!")
     }
   }
 
@@ -134,14 +125,14 @@ function gameController(playerOneName = "Player one", playerTwoName = "Player tw
     let markBoard = board.mark(row, column, getActivePlayer().sign)
     let win = checkWin()
 
-    if (win === "won" || win === "tie"){
-      return
+    if (win !== undefined){
+      return win
     } else if (markBoard === false) {
-      printRound();
+      return printRound()
     } else {
       switchPlayerTurn();
       round ++
-      printRound();
+      return printRound()
     }
   }
 
@@ -157,34 +148,36 @@ function displayController() {
   const game = gameController()
   const TTTGrid = document.querySelector("#TicTacToe-grid")
   const TTTCell = TTTGrid.children
+  const currentState = document.querySelector('#currentState')
+  let state = `Round 1 ${game.getActivePlayer().name}'s turn.`
   const gridMark = (clicked) => {
   switch (clicked) {
     case 0:
-      game.playRound(0,0)
+      state = game.playRound(0,0)
       break;
     case 1:
-      game.playRound(0,1)
+      state = game.playRound(0,1)
       break;
     case 2:
-      game.playRound(0,2)
+      state = game.playRound(0,2)
       break;
     case 3:
-      game.playRound(1,0)
+      state = game.playRound(1,0)
       break;
     case 4:
-      game.playRound(1,1)
+      state = game.playRound(1,1)
       break;
     case 5:
-      game.playRound(1,2)
+      state = game.playRound(1,2)
       break;
     case 6:
-      game.playRound(2,0)
+      state = game.playRound(2,0)
       break;
     case 7:
-      game.playRound(2,1)
+      state = game.playRound(2,1)
       break;
     case 8:
-      game.playRound(2,2)
+      state = game.playRound(2,2)
       break;
   }
   }
@@ -193,9 +186,15 @@ function displayController() {
     TTTCell[i].addEventListener('click', () =>{
       TTTCell[i].innerHTML = game.getActivePlayer().sign
       gridMark(i)
+      displayState()
     })
     }
   }
+  
+  const displayState = () =>{
+    currentState.innerHTML = state
+  }
+  displayState()
   gridClick()
 }
 
