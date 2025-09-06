@@ -128,7 +128,7 @@ function gameController(playerOneName = "Player one", playerTwoName = "Player tw
     if (win !== undefined){
       return win
     } else if (markBoard === false) {
-      return printRound()
+      return `Invalid`
     } else {
       switchPlayerTurn();
       round ++
@@ -184,9 +184,21 @@ function displayController() {
   const gridClick = () =>{
     for (let i = 0; i <TTTCell.length; i++) {
     TTTCell[i].addEventListener('click', () =>{
-      TTTCell[i].innerHTML = game.getActivePlayer().sign
-      gridMark(i)
-      displayState()
+      if (TTTCell[i].innerHTML !== "") {
+          let stateStorage = state
+          state = "This cell is occupied :("
+          displayState()
+          state = stateStorage
+          setTimeout(() => {
+            displayState()
+          }, 2000);
+        } else if (state.includes("won")||state.includes("tie")){
+          
+        } else {
+        TTTCell[i].innerHTML = game.getActivePlayer().sign
+        gridMark(i)
+        displayState()
+        }
     })
     }
   }
