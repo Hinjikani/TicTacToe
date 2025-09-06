@@ -21,8 +21,12 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 96px;
+  font-size: 200%;
   flex: 1;
   border: 1px solid black;
 }
 
+#currentState {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
